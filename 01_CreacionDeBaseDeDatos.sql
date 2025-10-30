@@ -1,0 +1,8 @@
+if DB_ID('COM3641G10') is NOT NULL
+	DROP database COM3641G10;
+GO
+
+create database COM3641G10;
+GO
+USE COM3641G10;
+GO
