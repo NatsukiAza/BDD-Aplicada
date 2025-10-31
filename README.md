@@ -7,4 +7,4 @@ Integrantes
 - Brizzolara Ojeda, Adriel Maximo de Jesús
 - Aranibar Machado, Rocio 
 - Vega, Kevin
-- Catherine
+- Tupia Caypo, Catherine
