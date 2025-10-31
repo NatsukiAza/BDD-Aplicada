@@ -61,5 +61,5 @@ AS BEGIN
         );
     --
     IF OBJECT_ID('tempdb..#DatosImportadosCSV') IS NOT NULL
-    DROP TABLE #NovedadesCSV;
+    DROP TABLE #DatosImportadosCSV;
 END
