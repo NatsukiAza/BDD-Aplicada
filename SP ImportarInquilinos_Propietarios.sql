@@ -32,10 +32,10 @@ AS BEGIN
         SELECT DISTINCT
             1 AS Tipo_Documento,
             DatoImportado.Documento AS Numero_Documento,
-            TRIM(REPLACE(DatoImportado.Nombre, '''', '')) AS Nombre,
-            TRIM(REPLACE(DatoImportado.Apellido, '''', '')) AS Apellido,
-            TRIM(DatoImportado.Email_Personal) AS Correo_Electronico,
-            CAST(TRIM(DatoImportado.Telefono) AS INT) AS Telefono
+            TRIM(DatoImportado.Nombre) AS Nombre, -- Limpieza de espacios
+            TRIM(DatoImportado.Apellido) AS Apellido, -- Limpieza de espacios
+            TRIM(DatoImportado.Email_Personal) AS Correo_Electronico, -- Limpieza de espacios
+            DatoImportado.Telefono AS Telefono
         FROM #DatosImportadosCSV AS DatoImportado
     ) AS Fuente 
     ON (
