@@ -30,7 +30,7 @@ AS BEGIN
     MERGE Persona AS Transformado
     USING (
         SELECT DISTINCT
-            1 AS Tipo_Documento,
+            1 AS Tipo_Documento, -- Se inserta la constante 1
             DatoImportado.Documento AS Numero_Documento,
             TRIM(DatoImportado.Nombre) AS Nombre, -- Limpieza de espacios
             TRIM(DatoImportado.Apellido) AS Apellido, -- Limpieza de espacios
@@ -52,7 +52,7 @@ AS BEGIN
     WHEN NOT MATCHED BY TARGET THEN
         INSERT (tipo_documento, numero_documento, nombre, apellido, correo_electronico, Telefono)
         VALUES (
-            Fuente.Tipo_Documento, -- Se inserta la constante 1
+            Fuente.Tipo_Documento, 
             Fuente.Numero_Documento,
             Fuente.Nombre,
             Fuente.Apellido,
