@@ -29,7 +29,7 @@ CREATE TABLE Persona(
 	Nombre VARCHAR(20) NOT NULL,
 	Apellido VARCHAR(20) NOT NULL,
 	Correo_Electronico VARCHAR(35) NOT NULL,
-	Telefono BIG INT NOT NULL CHECK(Telefono between 1100000000 and 1200000000),
+	Telefono INT NOT NULL CHECK(Telefono between 1100000000 and 1200000000),
 	PRIMARY KEY(Tipo_Documento,Numero_documento)
 )
 
@@ -112,4 +112,5 @@ CREATE TABLE Pago (
         REFERENCES Detalle_Expensa(ID_Detalle)
         ON DELETE CASCADE
 )
+
 
