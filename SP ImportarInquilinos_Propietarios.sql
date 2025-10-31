@@ -1,4 +1,4 @@
-CREATE PROCEDURE ImportarInquilinos_Propietarios
+CREATE PROCEDURE ImportarCSV
 	@RutaArchivoNovedades VARCHAR(500)
 AS BEGIN
     CREATE TABLE #DatosImportadosCSV(
