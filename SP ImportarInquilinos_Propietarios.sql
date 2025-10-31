@@ -60,6 +60,6 @@ AS BEGIN
             Fuente.Telefono
         );
     --
-    IF OBJECT_ID('tempdb..#NovedadesCSV') IS NOT NULL
+    IF OBJECT_ID('tempdb..#DatosImportadosCSV') IS NOT NULL
     DROP TABLE #NovedadesCSV;
 END
