@@ -49,3 +49,69 @@ CREATE TABLE Relacion_UF_Persona(
 	CONSTRAINT FK_Relacion_UF FOREIGN KEY (ID_UF)
     REFERENCES Unidad_Funcional(ID_UF) ON DELETE CASCADE
 )
+
+CREATE TABLE Expensa (
+    ID_Expensa INT PRIMARY KEY,
+    ID_Consorcio INT NOT NULL,
+    Fecha_Generada DATE NOT NULL,
+    Fecha_Venc1 DATE NOT NULL,
+    Fecha_Venc2 DATE NOT NULL,
+    Expensas_Ord DECIMAL(12,2) CHECK (Expensas_Ord >= 0),
+    Expensas_Extraord DECIMAL(12,2) CHECK (Expensas_Extraord >= 0),
+    Total_Expensa AS (Expensas_Ord + Expensas_Extraord),
+    Estado VARCHAR(15) CHECK (Estado IN ('GENERADA','ENVIADA','PAGADA','VENCIDA')),
+
+    CONSTRAINT FK_Expensa_Consorcio FOREIGN KEY (ID_Consorcio)
+        REFERENCES Consorcio(ID_Consorcio)
+        ON DELETE CASCADE,
+    
+    CONSTRAINT CHK_Fecha_Venc2_Mayor_Venc1 CHECK (Fecha_Venc2 > Fecha_Venc1)
+)
+
+CREATE TABLE Gasto (
+    ID_Gasto INT PRIMARY KEY,
+    ID_Expensa INT NOT NULL,
+    Tipo_Gasto NVARCHAR(50) NOT NULL,
+    Fecha DATE NOT NULL,
+    Monto DECIMAL(12,2) CHECK (Monto >= 0),
+    Detalle NVARCHAR(255),
+
+    CONSTRAINT FK_Gasto_Expensa FOREIGN KEY (ID_Expensa)
+        REFERENCES Expensa(ID_Expensa)
+        ON DELETE CASCADE
+)
+
+CREATE TABLE Detalle_Expensa (
+    ID_Detalle INT PRIMARY KEY,
+    ID_Expensa INT NOT NULL,
+    ID_UF INT NOT NULL,
+    Pagos_Recibidos DECIMAL(12,2) DEFAULT 0 CHECK (Pagos_Recibidos >= 0),
+    Deuda DECIMAL(12,2) DEFAULT 0 CHECK (Deuda >= 0),
+    Interes_Mora DECIMAL(12,2) DEFAULT 0 CHECK (Interes_Mora >= 0),
+    Detalle_Ordinarias DECIMAL(12,2) CHECK (Detalle_Ordinarias >= 0),
+    Detalle_Extraord DECIMAL(12,2) CHECK (Detalle_Extraord >= 0),
+    Total DECIMAL(12,2) CHECK (Total >= 0),
+
+    CONSTRAINT FK_Detalle_Expensa FOREIGN KEY (ID_Expensa)
+        REFERENCES Expensa(ID_Expensa)
+        ON DELETE CASCADE,
+
+    CONSTRAINT FK_Detalle_UF FOREIGN KEY (ID_UF)
+        REFERENCES unidad_Funcional(ID_UF)
+        ON DELETE NO ACTION 
+)
+
+CREATE TABLE Pago (
+    ID_Pago INT PRIMARY KEY,
+    ID_Detalle INT NOT NULL,
+    Fecha_Pago DATE NOT NULL,
+    Cuenta_Origen VARCHAR(30) NOT NULL,
+    DatoImportado DECIMAL(12,2) CHECK (DatoImportado >= 0),
+    Estado VARCHAR(15) CHECK (Estado IN ('PENDIENTE','CONFIRMADO','ANULADO')),
+    Detalle NVARCHAR(255),
+    Tipo_Pago VARCHAR(15) CHECK (Tipo_Pago IN ('ORDINARIO','EXTRAORDINARIO')),
+
+    CONSTRAINT FK_Pago_Detalle FOREIGN KEY (ID_Detalle)
+        REFERENCES Detalle_Expensa(ID_Detalle)
+        ON DELETE CASCADE
+)
