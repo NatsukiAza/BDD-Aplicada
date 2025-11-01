@@ -5,4 +5,4 @@ Integrantes
 - Azarola Santino
 - Muñoz Gimenez Facundo Ezequiel
 - Brizzolara Ojeda Adriel Maximo de Jesús
-- Rocio 
+- Aranibar Machado Rocio
